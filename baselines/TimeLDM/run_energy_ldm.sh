@@ -4,7 +4,7 @@
 
 LR=1e-4
 BS=64
-VAE_CKPT=./Checkpoints_energy/vae/LR1e-3-BS64/checkpoint-best.pt
+VAE_CKPT=./Checkpoints_energy/vae/LR0.001-BS64/checkpoint-best.pt
 
 export CUDA_VISIBLE_DEVICES=0
 export WANDB_PROJECT="timeldm"

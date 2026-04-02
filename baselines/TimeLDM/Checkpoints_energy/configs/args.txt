@@ -18,3 +18,23 @@
   tensorboard: False
   train: True
   vae_ckpt: None
+==> torch version: 2.10.0
+==> cudnn version: None
+==> Cmd:
+['main.py', '--name', 'energy', '--config_file', 'Config/energy.yaml', '--stage', 'ldm', '--train', '--lr', '1e-4', '--batch_size', '64', '--vae_ckpt', './Checkpoints_energy/vae/LR1e-3-BS64/checkpoint-best.pt']
+==> args:
+  batch_size: 64
+  config_file: Config/energy.yaml
+  cudnn_deterministic: False
+  gpu: None
+  lr: 0.0001
+  milestone: best
+  name: energy
+  opts: []
+  output: OUTPUT
+  save_dir: ./Checkpoints_energy
+  seed: 12345
+  stage: ldm
+  tensorboard: False
+  train: True
+  vae_ckpt: ./Checkpoints_energy/vae/LR1e-3-BS64/checkpoint-best.pt
