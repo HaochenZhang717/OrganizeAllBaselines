@@ -27,7 +27,7 @@ solver:
     base_lr: 1.0e-3
     max_epochs: 500
     results_folder: ./Checkpoints_etth1/vae
-    eval_every: 100
+    eval_every: 1
     lambda1: 1.0    # L2 weight
     lambda2: 1.0    # L1 weight
     lambda3: 1.0    # FFT weight
