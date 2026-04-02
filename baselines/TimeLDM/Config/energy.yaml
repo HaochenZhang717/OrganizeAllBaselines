@@ -25,8 +25,7 @@ ldm_model:
 solver:
   vae:
     base_lr: 0.001
-#    max_epochs: 500
-    max_epochs: 2
+    max_epochs: 1000
     results_folder: ./Checkpoints_energy/vae
     eval_every: 1
     lambda1: 1.0    # L2 weight
@@ -35,8 +34,7 @@ solver:
 
   ldm:
     base_lr: 0.0001
-    max_epochs: 2
-#    max_epochs: 1000
+    max_epochs: 1000
     results_folder: ./Checkpoints_energy/ldm
     eval_every: 500
     t_min: 0.01

@@ -6,12 +6,9 @@ model:
   w_g: 1.0              # weight for moment-matching terms
 
 solver:
-#  phase1_iters: 10000   # encoder / recovery pre-training iterations
-#  phase2_iters: 10000   # supervisor pre-training iterations
-#  phase3_iters: 50000   # joint GAN training iterations
-  phase1_iters: 5   # encoder / recovery pre-training iterations
-  phase2_iters: 5   # supervisor pre-training iterations
-  phase3_iters: 5   # joint GAN training iterations
+  phase1_iters: 10000   # encoder / recovery pre-training iterations
+  phase2_iters: 10000   # supervisor pre-training iterations
+  phase3_iters: 50000   # joint GAN training iterations
   lr: 1.0e-3
   beta1: 0.9
   results_folder: ./Checkpoints_etth
