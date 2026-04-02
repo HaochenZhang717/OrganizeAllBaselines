@@ -161,6 +161,12 @@ class Trainer:
         n_eval = len(eval_real)
         fake_np = self._generate(n_eval)
 
+        # ── Save model checkpoint and generated samples ───────────────────────
+        self.save(f'step{step}')
+        samples_dir = self.results_folder / 'samples'
+        samples_dir.mkdir(exist_ok=True)
+        np.save(str(samples_dir / f'fake_step{step}.npy'), fake_np)
+
         real_t = torch.tensor(eval_real.astype(np.float32))
         fake_t = torch.tensor(fake_np.astype(np.float32))
         # fid_val = compute_fid(real_t, fake_t, ckpt_path=self.fid_vae_ckpt)["fid"]

@@ -1,7 +1,7 @@
 vae_model:
   target: models.vae.VAE
   params:
-    input_dim: 28
+    input_dim: 7
     seq_len: 128
     latent_dim: 32
     num_heads: 4        # latent_dim (32) must be divisible by num_heads (4) ✓

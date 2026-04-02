@@ -3,7 +3,7 @@
 
 LR=1e-3
 BS=64
-DATASET=energy
+DATASET=etth1
 export CUDA_VISIBLE_DEVICES=0
 export WANDB_PROJECT="timeldm"
 export WANDB_NAME="${DATASET}_vae_lr${LR}_bs${BS}"

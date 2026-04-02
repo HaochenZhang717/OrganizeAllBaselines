@@ -81,12 +81,18 @@ class Trainer(object):
         return torch.cat(batches, dim=0).numpy()  # (N, T, C)
 
     def _eval_metrics(self, epoch: int, real_np: np.ndarray):
-        """Generate samples and log FID + discriminative score to wandb."""
+        """Generate samples, save checkpoint + fake array, log FID + discriminative score."""
         window, var_num = real_np.shape[1], real_np.shape[2]
         n_eval = len(real_np)
 
         # generate fake samples  →  (n_eval, T, C) numpy
         fake_np = self.sample(n_eval, size_every=128, shape=[window, var_num])[:n_eval]
+
+        # ── Save model checkpoint and generated samples ───────────────────────
+        self.save(f'epoch{epoch}')
+        samples_dir = self.results_folder / 'samples'
+        samples_dir.mkdir(exist_ok=True)
+        np.save(str(samples_dir / f'fake_epoch{epoch}.npy'), fake_np)
 
         # ── FID ──────────────────────────────────────────────────────────────
         real_t = torch.tensor(real_np.astype(np.float32))  # (N, T, C)

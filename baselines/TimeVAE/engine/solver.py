@@ -71,6 +71,12 @@ class Trainer:
             fake_np = self.model.get_prior_samples(n_eval)  # (N, T, C)
         self.model.train()
 
+        # ── Save model checkpoint and generated samples ───────────────────────
+        self.save(f'epoch{epoch}')
+        samples_dir = self.results_folder / 'samples'
+        samples_dir.mkdir(exist_ok=True)
+        np.save(str(samples_dir / f'fake_epoch{epoch}.npy'), fake_np)
+
         # ── FID ───────────────────────────────────────────────────────────────
         real_t = torch.tensor(eval_real.astype(np.float32))
         fake_t = torch.tensor(fake_np.astype(np.float32))

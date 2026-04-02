@@ -339,6 +339,12 @@ class LDMTrainer:
 
         fake_np = self.sample(n_eval, size_every=128, shape=[window, var_num])[:n_eval]
 
+        # ── Save model checkpoint and generated samples ───────────────────────
+        self.save(f'epoch{epoch}')
+        samples_dir = self.results_folder / 'samples'
+        samples_dir.mkdir(exist_ok=True)
+        np.save(str(samples_dir / f'fake_epoch{epoch}.npy'), fake_np)
+
         real_t = torch.tensor(real_np.astype(np.float32))
         fake_t = torch.tensor(fake_np.astype(np.float32))
         fid_val  = Context_FID(real_t, fake_t)
@@ -415,8 +421,6 @@ class LDMTrainer:
 
                 print(f"[LDM] Epoch {epoch:5d} [val]: loss={val_loss_avg:.6f}")
                 wandb.log({'valid/loss': val_loss_avg, 'epoch': epoch})
-
-                self.save(str(epoch))
 
                 if val_loss_avg < best_val_loss:
                     best_val_loss = val_loss_avg

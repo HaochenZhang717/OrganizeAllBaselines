@@ -4,7 +4,7 @@
 
 LR=1e-4
 BS=64
-DATASET=energy
+DATASET=etth1
 VAE_CKPT=./Checkpoints_${DATASET}/vae/LR0.001-BS64/checkpoint-best.pt
 
 export CUDA_VISIBLE_DEVICES=0
