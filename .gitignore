@@ -1,1 +1,17 @@
 processed/
+
+baselines/TimeLDM/Checkpoints_*
+baselines/TimeLDM/wandb
+
+baselines/TimeGAN/Checkpoints_*
+baselines/TimeGAN/wandb
+
+
+baselines/Diffusion-TS/Checkpoints_*
+baselines/Diffusion-TS/wandb
+
+baselines/TimeVAE/Checkpoints_*
+baselines/TimeVAE/wandb
+
+
+
