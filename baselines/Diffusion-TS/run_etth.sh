@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 LR=1e-5
-BS=128
+BS=64
 export CUDA_VISIBLE_DEVICES=0
 export WANDB_PROJECT="diffusion-ts"
 export WANDB_NAME="etth1_lr${LR}_bs${BS}"
