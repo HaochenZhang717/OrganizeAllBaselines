@@ -24,7 +24,7 @@ ldm_model:
 
 solver:
   vae:
-    base_lr: 1.0e-3
+    base_lr: 0.001
 #    max_epochs: 500
     max_epochs: 2
     results_folder: ./Checkpoints_energy/vae
@@ -34,7 +34,7 @@ solver:
     lambda3: 1.0    # FFT weight
 
   ldm:
-    base_lr: 1.0e-4
+    base_lr: 0.0001
     max_epochs: 2
 #    max_epochs: 1000
     results_folder: ./Checkpoints_energy/ldm
