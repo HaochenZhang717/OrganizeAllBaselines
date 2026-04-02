@@ -1,0 +1,41 @@
+/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/utils/data/dataloader.py:1118: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+(1729, 128, 7)
+Epoch    0 | train loss=278.5537 (recon=87.2991 kl=16.6565) | val loss=236.8973 (recon=73.5313 kl=16.3035) | t=7.2s
+> /Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeVAE/engine/solver.py(78)_eval_metrics()
+-> fid_val = compute_fid(real_t, fake_t, ckpt_path=self.fid_vae_ckpt)['fid']
+*** SyntaxError: invalid character '。' (U+3002)
+torch.Size([1729, 128, 7])
+torch.Size([1729, 128, 7])
+*** RuntimeError: Error(s) in loading state_dict for FIDVAE:
+	size mismatch for encoder.to_mu.weight: copying a param with shape torch.Size([128, 128]) from checkpoint, the shape in current model is torch.Size([64, 128]).
+	size mismatch for encoder.to_mu.bias: copying a param with shape torch.Size([128]) from checkpoint, the shape in current model is torch.Size([64]).
+	size mismatch for encoder.to_logvar.weight: copying a param with shape torch.Size([128, 128]) from checkpoint, the shape in current model is torch.Size([64, 128]).
+	size mismatch for encoder.to_logvar.bias: copying a param with shape torch.Size([128]) from checkpoint, the shape in current model is torch.Size([64]).
+	size mismatch for decoder.fc.weight: copying a param with shape torch.Size([4096, 128]) from checkpoint, the shape in current model is torch.Size([4096, 64]).
+*** RuntimeError: Error(s) in loading state_dict for FIDVAE:
+	size mismatch for encoder.to_mu.weight: copying a param with shape torch.Size([128, 128]) from checkpoint, the shape in current model is torch.Size([64, 128]).
+	size mismatch for encoder.to_mu.bias: copying a param with shape torch.Size([128]) from checkpoint, the shape in current model is torch.Size([64]).
+	size mismatch for encoder.to_logvar.weight: copying a param with shape torch.Size([128, 128]) from checkpoint, the shape in current model is torch.Size([64, 128]).
+	size mismatch for encoder.to_logvar.bias: copying a param with shape torch.Size([128]) from checkpoint, the shape in current model is torch.Size([64]).
+	size mismatch for decoder.fc.weight: copying a param with shape torch.Size([4096, 128]) from checkpoint, the shape in current model is torch.Size([4096, 64]).
+Traceback (most recent call last):
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeVAE/main.py", line 79, in <module>
+    main()
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeVAE/main.py", line 75, in main
+    trainer.train()
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeVAE/engine/solver.py", line 172, in train
+    self._eval_metrics(epoch, eval_real)
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeVAE/engine/solver.py", line 78, in _eval_metrics
+    fid_val = compute_fid(real_t, fake_t, ckpt_path=self.fid_vae_ckpt)['fid']
+              ^^^^^^^^^^^
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeVAE/engine/solver.py", line 78, in _eval_metrics
+    fid_val = compute_fid(real_t, fake_t, ckpt_path=self.fid_vae_ckpt)['fid']
+              ^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/bdb.py", line 90, in trace_dispatch
+    return self.dispatch_line(frame)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/bdb.py", line 115, in dispatch_line
+    if self.quitting: raise BdbQuit
+                      ^^^^^^^^^^^^^
+bdb.BdbQuit

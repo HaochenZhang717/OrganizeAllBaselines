@@ -1,0 +1,23 @@
+model:
+  seq_len: 128
+  feat_dim: 28
+  latent_dim: 16
+  reconstruction_wt: 3.0
+  hidden_layer_sizes: [64, 128, 256]
+  trend_poly: 0
+  custom_seas: null
+  use_residual_conn: true
+
+solver:
+  max_epochs: 2000
+  lr: 1.0e-3
+  results_folder: ./Checkpoints_energy
+  eval_every: 100       # evaluate FID + disc score every N epochs
+  save_every: 500
+
+dataloader:
+  train_data: ../../processed/energy_data/train_ts.npy
+  valid_data: ../../processed/energy_data/valid_ts.npy
+  batch_size: 128
+
+fid_vae_ckpt: ../../fid_vae/vae_ckpts/energy/best.pt

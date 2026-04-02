@@ -1,0 +1,78 @@
+_wandb:
+    value:
+        cli_version: 0.25.1
+        e:
+            mhwxbo277hzompqmpvham2o6lgc2io08:
+                apple:
+                    ecpuCores: 6
+                    gpuCores: 18
+                    memoryGb: 36
+                    name: Apple M3 Pro
+                    pcpuCores: 6
+                    ramTotalBytes: "38654705664"
+                args:
+                    - --name
+                    - etth1
+                    - --config_file
+                    - Config/etth.yaml
+                codePath: main.py
+                codePathLocal: main.py
+                cpu_count: 12
+                cpu_count_logical: 12
+                disk:
+                    /:
+                        total: "994662584320"
+                        used: "740099264512"
+                email: haochen235@g.ucla.edu
+                executable: /opt/anaconda3/envs/moment_ts/bin/python
+                host: Haochens-MacBook-Pro.local
+                memory:
+                    total: "38654705664"
+                os: macOS-14.3-arm64-arm-64bit
+                program: /Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeGAN/main.py
+                python: CPython 3.11.0
+                root: /Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeGAN
+                startedAt: "2026-04-02T18:20:46.310607Z"
+                writerId: mhwxbo277hzompqmpvham2o6lgc2io08
+        m: []
+        python_version: 3.11.0
+        t:
+            "1":
+                - 1
+                - 5
+                - 53
+            "2":
+                - 1
+                - 5
+                - 53
+            "3":
+                - 13
+                - 16
+            "4": 3.11.0
+            "5": 0.25.1
+            "12": 0.25.1
+            "13": darwin-arm64
+dataloader:
+    value:
+        batch_size: 128
+        train_data: ../../processed/ETTh1/train_ts.npy
+        valid_data: ../../processed/ETTh1/valid_ts.npy
+fid_vae_ckpt:
+    value: ../../fid_vae/vae_ckpts/etth1/best.pt
+model:
+    value:
+        feature_size: 7
+        hidden_dim: 24
+        num_layer: 3
+        w_g: 1
+        w_gamma: 1
+solver:
+    value:
+        beta1: 0.9
+        eval_every: 1000
+        lr: 0.001
+        phase1_iters: 10000
+        phase2_iters: 10000
+        phase3_iters: 50000
+        results_folder: ./Checkpoints_etth
+        save_every: 10000

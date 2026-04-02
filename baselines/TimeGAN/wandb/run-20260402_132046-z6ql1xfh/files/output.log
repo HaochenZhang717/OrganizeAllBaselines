@@ -1,0 +1,21 @@
+/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/utils/data/dataloader.py:1118: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+
+=== Phase 1: Encoder / Recovery pre-training ===
+Traceback (most recent call last):
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeGAN/main.py", line 84, in <module>
+    main()
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeGAN/main.py", line 80, in main
+    trainer.train()
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeGAN/engine/solver.py", line 336, in train
+    self._phase1()
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeGAN/engine/solver.py", line 186, in _phase1
+    loss_er.backward()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/_tensor.py", line 630, in backward
+    torch.autograd.backward(
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/autograd/__init__.py", line 364, in backward
+    _engine_run_backward(
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/autograd/graph.py", line 865, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

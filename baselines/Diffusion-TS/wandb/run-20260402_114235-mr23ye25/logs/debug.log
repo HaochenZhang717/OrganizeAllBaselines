@@ -1,0 +1,355 @@
+2026-04-02 11:42:35,227 INFO    MainThread:99085 [wandb_setup.py:_flush():81] Current SDK version is 0.25.1
+2026-04-02 11:42:35,227 INFO    MainThread:99085 [wandb_setup.py:_flush():81] Configure stats pid to 99085
+2026-04-02 11:42:35,227 INFO    MainThread:99085 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2026-04-02 11:42:35,227 INFO    MainThread:99085 [wandb_init.py:setup_run_log_directory():717] Logging user logs to /Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/Diffusion-TS/wandb/run-20260402_114235-mr23ye25/logs/debug.log
+2026-04-02 11:42:35,227 INFO    MainThread:99085 [wandb_init.py:setup_run_log_directory():718] Logging internal logs to /Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/Diffusion-TS/wandb/run-20260402_114235-mr23ye25/logs/debug-internal.log
+2026-04-02 11:42:35,227 INFO    MainThread:99085 [wandb_init.py:init():844] calling init triggers
+2026-04-02 11:42:35,227 INFO    MainThread:99085 [wandb_init.py:init():849] wandb.init called with sweep_config: {}
+config: {'model': {'target': 'Models.interpretable_diffusion.gaussian_diffusion.Diffusion_TS', 'params': {'seq_length': 128, 'feature_size': 7, 'n_layer_enc': 3, 'n_layer_dec': 2, 'd_model': 64, 'timesteps': 500, 'sampling_timesteps': 500, 'loss_type': 'l1', 'beta_schedule': 'cosine', 'n_heads': 4, 'mlp_hidden_times': 4, 'attn_pd': 0.0, 'resid_pd': 0.0, 'kernel_size': 1, 'padding_size': 0}}, 'solver': {'base_lr': 1e-05, 'max_epochs': 18000, 'results_folder': './Checkpoints_etth/LR1e-05-BS128', 'scheduler': {'target': 'engine.lr_sch.ReduceLROnPlateauWithWarmup', 'params': {'factor': 0.5, 'patience': 4000, 'min_lr': 1e-05, 'threshold': 0.1, 'threshold_mode': 'rel', 'warmup_lr': 0.0008, 'warmup': 500, 'verbose': False}}}, 'dataloader': {'train_dataset': {'target': 'Utils.Data_utils.npy_datasets.PreSplitNPYDataset', 'params': {'name': 'etth1', 'data_root': '../../processed/ETTh1', 'split': 'train', 'seed': 123, 'output_dir': './Checkpoints_etth'}}, 'valid_dataset': {'target': 'Utils.Data_utils.npy_datasets.PreSplitNPYDataset', 'params': {'name': 'etth1', 'data_root': '../../processed/ETTh1', 'split': 'valid', 'seed': 123}}, 'batch_size': 128, 'sample_size': 256, 'shuffle': True}, '_wandb': {}}
+2026-04-02 11:42:35,228 INFO    MainThread:99085 [wandb_init.py:init():892] starting backend
+2026-04-02 11:42:35,882 INFO    MainThread:99085 [wandb_init.py:init():895] sending inform_init request
+2026-04-02 11:42:35,922 INFO    MainThread:99085 [wandb_init.py:init():903] backend started and connected
+2026-04-02 11:42:35,924 INFO    MainThread:99085 [wandb_init.py:init():973] updated telemetry
+2026-04-02 11:42:35,925 INFO    MainThread:99085 [wandb_init.py:init():997] communicating run to backend with 90.0 second timeout
+2026-04-02 11:42:36,801 INFO    MainThread:99085 [wandb_init.py:init():1042] starting run threads in backend
+2026-04-02 11:42:36,893 INFO    MainThread:99085 [wandb_run.py:_console_start():2524] atexit reg
+2026-04-02 11:42:36,893 INFO    MainThread:99085 [wandb_run.py:_redirect():2373] redirect: wrap_raw
+2026-04-02 11:42:36,893 INFO    MainThread:99085 [wandb_run.py:_redirect():2442] Wrapping output streams.
+2026-04-02 11:42:36,893 INFO    MainThread:99085 [wandb_run.py:_redirect():2465] Redirects installed.
+2026-04-02 11:42:36,894 INFO    MainThread:99085 [wandb_init.py:init():1082] run started, returning control to user process
+2026-04-02 11:45:23,076 INFO    wandb-AsyncioManager-main:99085 [service_client.py:_forward_responses():134] Reached EOF.
+2026-04-02 11:45:23,076 INFO    wandb-AsyncioManager-main:99085 [mailbox.py:close():155] Closing mailbox, abandoning 1 handles.
+2026-04-02 11:45:23,580 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,591 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,592 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,594 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,596 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,597 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,599 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,601 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,601 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,602 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,603 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,604 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,605 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,606 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,606 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,606 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,607 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,607 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,608 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+2026-04-02 11:45:23,608 ERROR   wandb-AsyncioManager-main:99085 [asyncio_manager.py:fn_wrap_exceptions():184] Uncaught exception in run_soon callback.
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/asyncio_manager.py", line 182, in fn_wrap_exceptions
+    await fn()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 45, in publish
+    await self._send_server_request(request)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 78, in _send_server_request
+    raise self._broken_exc.with_traceback(self._broken_tb)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 87, in _send_server_request
+    await self._drain_writer()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/wandb/sdk/lib/service/service_client.py", line 96, in _drain_writer
+    await self._writer.drain()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 378, in drain
+    await self._protocol._drain_helper()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost

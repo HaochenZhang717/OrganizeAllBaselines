@@ -1,0 +1,23 @@
+model:
+  seq_len: 128
+  feat_dim: 7
+  latent_dim: 8
+  reconstruction_wt: 3.0
+  hidden_layer_sizes: [32, 64, 128]
+  trend_poly: 0
+  custom_seas: null
+  use_residual_conn: true
+
+solver:
+  max_epochs: 2000
+  lr: 1.0e-3
+  results_folder: ./Checkpoints_etth
+  eval_every: 100       # evaluate FID + disc score every N epochs
+  save_every: 500
+
+dataloader:
+  train_data: ../../processed/ETTh1/train_ts.npy
+  valid_data: ../../processed/ETTh1/valid_ts.npy
+  batch_size: 128
+
+fid_vae_ckpt: ../../fid_vae/vae_ckpts/etth1/best.pt

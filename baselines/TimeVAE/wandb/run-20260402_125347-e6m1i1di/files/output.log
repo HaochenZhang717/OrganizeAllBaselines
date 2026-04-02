@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeVAE/main.py", line 79, in <module>
+    main()
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeVAE/main.py", line 75, in main
+    trainer.train()
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeVAE/engine/solver.py", line 92, in train
+    eval_real = self._collect_eval_real(max_samples=512)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Trainer._collect_eval_real() got an unexpected keyword argument 'max_samples'

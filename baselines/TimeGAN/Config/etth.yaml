@@ -1,0 +1,26 @@
+model:
+  feature_size: 7       # input / output feature dimension
+  hidden_dim: 24        # GRU hidden size
+  num_layer: 3          # GRU layers
+  w_gamma: 1.0          # weight for E_hat discriminator term
+  w_g: 1.0              # weight for moment-matching terms
+
+solver:
+#  phase1_iters: 10000   # encoder / recovery pre-training iterations
+#  phase2_iters: 10000   # supervisor pre-training iterations
+#  phase3_iters: 50000   # joint GAN training iterations
+  phase1_iters: 5   # encoder / recovery pre-training iterations
+  phase2_iters: 5   # supervisor pre-training iterations
+  phase3_iters: 5   # joint GAN training iterations
+  lr: 1.0e-3
+  beta1: 0.9
+  results_folder: ./Checkpoints_etth
+  eval_every: 1000      # evaluate FID + disc every N joint-phase iterations
+  save_every: 10000     # save checkpoint every N joint-phase iterations
+
+dataloader:
+  train_data: ../../processed/ETTh1/train_ts.npy
+  valid_data: ../../processed/ETTh1/valid_ts.npy
+  batch_size: 128
+
+fid_vae_ckpt: ../../fid_vae/vae_ckpts/etth1/best.pt

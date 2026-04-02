@@ -1,0 +1,1 @@
+{"valid/kl":16.303476197378977,"_runtime":300,"valid/loss":236.89733723231726,"_wandb":{"runtime":300},"train/loss":278.55370401453087,"valid/recon":73.53128787449428,"_timestamp":1.775152961315694e+09,"train/recon":87.29906392980504,"_step":0,"epoch":0,"train/kl":16.656511065256954}

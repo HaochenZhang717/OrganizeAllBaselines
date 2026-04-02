@@ -1,0 +1,47 @@
+{
+  "os": "macOS-14.3-arm64-arm-64bit",
+  "python": "CPython 3.11.0",
+  "startedAt": "2026-04-02T16:42:35.223916Z",
+  "args": [
+    "--name",
+    "etth1",
+    "--config_file",
+    "Config/neurips_baselines/etth.yaml",
+    "--gpu",
+    "0",
+    "--train",
+    "--lr",
+    "1e-5",
+    "--batch_size",
+    "128",
+    "--fid_vae_ckpt",
+    "../../fid_vae/vae_ckpt/best.pt"
+  ],
+  "program": "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/Diffusion-TS/main.py",
+  "codePath": "main.py",
+  "codePathLocal": "main.py",
+  "email": "haochen235@g.ucla.edu",
+  "root": "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/Diffusion-TS",
+  "host": "Haochens-MacBook-Pro.local",
+  "executable": "/opt/anaconda3/envs/moment_ts/bin/python",
+  "cpu_count": 12,
+  "cpu_count_logical": 12,
+  "disk": {
+    "/": {
+      "total": "994662584320",
+      "used": "739947556864"
+    }
+  },
+  "memory": {
+    "total": "38654705664"
+  },
+  "apple": {
+    "name": "Apple M3 Pro",
+    "ecpuCores": 6,
+    "pcpuCores": 6,
+    "gpuCores": 18,
+    "memoryGb": 36,
+    "ramTotalBytes": "38654705664"
+  },
+  "writerId": "zgcwq4sxcwkbld5olzyy4zjcci2dkc4k"
+}

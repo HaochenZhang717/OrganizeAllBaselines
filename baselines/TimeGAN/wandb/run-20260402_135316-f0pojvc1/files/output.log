@@ -1,0 +1,10 @@
+/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/utils/data/dataloader.py:1118: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+
+=== Phase 1: Encoder / Recovery pre-training ===
+
+=== Phase 2: Supervisor pre-training ===
+
+=== Phase 3: Joint GAN training ===
+
+Training complete.

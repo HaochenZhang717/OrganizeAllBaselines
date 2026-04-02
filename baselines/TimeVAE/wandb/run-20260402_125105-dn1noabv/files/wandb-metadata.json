@@ -1,0 +1,38 @@
+{
+  "os": "macOS-14.3-arm64-arm-64bit",
+  "python": "CPython 3.11.0",
+  "startedAt": "2026-04-02T17:51:05.899028Z",
+  "args": [
+    "--name",
+    "etth1",
+    "--config_file",
+    "Config/etth.yaml"
+  ],
+  "program": "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeVAE/main.py",
+  "codePath": "main.py",
+  "codePathLocal": "main.py",
+  "email": "haochen235@g.ucla.edu",
+  "root": "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeVAE",
+  "host": "Haochens-MacBook-Pro.local",
+  "executable": "/opt/anaconda3/envs/moment_ts/bin/python",
+  "cpu_count": 12,
+  "cpu_count_logical": 12,
+  "disk": {
+    "/": {
+      "total": "994662584320",
+      "used": "740102635520"
+    }
+  },
+  "memory": {
+    "total": "38654705664"
+  },
+  "apple": {
+    "name": "Apple M3 Pro",
+    "ecpuCores": 6,
+    "pcpuCores": 6,
+    "gpuCores": 18,
+    "memoryGb": 36,
+    "ramTotalBytes": "38654705664"
+  },
+  "writerId": "ia8onlevgwrsgxbq7dtwls8qcvy4c8sd"
+}
