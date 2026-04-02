@@ -84,7 +84,6 @@ def main():
 
     # Derive save_dir (used by Logger and dataloader)
     base_folder = stage_cfg['results_folder']
-    breakpoint()
     run_tag = f'LR{args.lr}-BS{args.batch_size}'
     stage_cfg['results_folder'] = os.path.join(base_folder, run_tag)
     args.save_dir = os.path.dirname(base_folder)   # parent for config/log artefacts
@@ -111,7 +110,7 @@ def main():
     elif args.stage == 'ldm':
         vae          = instantiate_from_config(config['vae_model']).to(device)
         ldm_denoiser = instantiate_from_config(config['ldm_model']).to(device)
-        breakpoint()
+
         # Load the trained VAE (use EMA weights)
         vae_data = torch.load(args.vae_ckpt, map_location=device)
         vae.load_state_dict(vae_data['vae'])
