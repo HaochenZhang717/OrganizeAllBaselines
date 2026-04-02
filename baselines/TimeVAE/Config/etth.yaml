@@ -20,4 +20,3 @@ dataloader:
   valid_data: ../../processed/ETTh1/valid_ts.npy
   batch_size: 128
 
-fid_vae_ckpt: ../../fid_vae/vae_ckpts/etth1/best.pt

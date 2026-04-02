@@ -37,7 +37,7 @@ def parse_args():
     parser.add_argument('--sample', type=int, default=0, 
                         choices=[0, 1], help='Condition or Uncondition.')
     parser.add_argument('--milestone', type=str, default="best")
-    parser.add_argument('--fid_vae_ckpt', type=str, required=True)
+    parser.add_argument('--fid_vae_ckpt', type=str, required=False, default=None)
 
 
     # args for modify config

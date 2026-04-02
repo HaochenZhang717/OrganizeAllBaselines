@@ -19,5 +19,3 @@ dataloader:
   train_data: ../../processed/energy_data/train_ts.npy
   valid_data: ../../processed/energy_data/valid_ts.npy
   batch_size: 128
-
-fid_vae_ckpt: ../../fid_vae/vae_ckpts/energy/best.pt

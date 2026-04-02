@@ -28,8 +28,6 @@ class Trainer:
         self.results_folder = Path(solver_cfg['results_folder'])
         os.makedirs(self.results_folder, exist_ok=True)
 
-        self.fid_vae_ckpt = config['fid_vae_ckpt']
-
         self.optimizer = Adam(self.model.parameters(), lr=solver_cfg['lr'])
 
         wandb.init(

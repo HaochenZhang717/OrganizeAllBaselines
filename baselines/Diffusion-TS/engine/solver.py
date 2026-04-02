@@ -30,9 +30,6 @@ class Trainer(object):
         self.results_folder = Path(config['solver']['results_folder'])
         os.makedirs(self.results_folder, exist_ok=True)
 
-        # checkpoint path for the FID feature-extractor VAE
-        self.fid_vae_ckpt = str(self.args.fid_vae_ckpt)
-
         start_lr = config['solver'].get('base_lr', 1.0e-4)
         self.opt = Adam(filter(lambda p: p.requires_grad, self.model.parameters()), lr=start_lr)
 

@@ -13,4 +13,4 @@ python main.py \
   --train \
   --lr ${LR} \
   --batch_size ${BS} \
-  --fid_vae_ckpt "../../fid_vae/vae_ckpt/best.pt"
+
