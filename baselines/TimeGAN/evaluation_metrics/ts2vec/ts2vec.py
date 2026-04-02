@@ -227,7 +227,7 @@ class TS2Vec:
         org_training = self.net.training
         self.net.eval()
         
-        dataset = TensorDataset(torch.from_numpy(data).to(torch.float))
+        dataset = TensorDataset(data)
         loader = DataLoader(dataset, batch_size=batch_size)
         
         with torch.no_grad():
