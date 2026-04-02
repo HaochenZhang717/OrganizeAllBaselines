@@ -1,0 +1,72 @@
+/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/utils/data/dataloader.py:1118: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+Exception ignored in: <function _MultiProcessingDataLoaderIter.__del__ at 0x10724ade0>
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 1707, in __del__
+    self._shutdown_workers()
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 1671, in _shutdown_workers
+    w.join(timeout=_utils.MP_STATUS_CHECK_INTERVAL)
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/multiprocessing/process.py", line 149, in join
+    res = self._popen.wait(timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/multiprocessing/popen_fork.py", line 40, in wait
+    if not wait([self.sentinel], timeout):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/multiprocessing/connection.py", line 930, in wait
+    ready = selector.select(timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/selectors.py", line 415, in select
+    fd_event_list = self._selector.poll(timeout)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt:
+Traceback (most recent call last):
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeLDM/main.py", line 142, in <module>
+    main()
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeLDM/main.py", line 104, in main
+    trainer.train()
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeLDM/engine/solver.py", line 108, in train
+    x_hat, mu, log_sigma, z = self.vae(batch)
+                              ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeLDM/models/vae.py", line 82, in forward
+    x_hat = self.decoder(z)
+            ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeLDM/models/decoder.py", line 133, in forward
+    h = layer(h, memory)
+        ^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeLDM/models/decoder.py", line 61, in forward
+    attn_out, _ = self.cross_attn(x, memory, memory)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/nn/modules/activation.py", line 1491, in forward
+    attn_output, attn_output_weights = F.multi_head_attention_forward(
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/nn/functional.py", line 6592, in multi_head_attention_forward
+    attn_output_weights = dropout(attn_output_weights, p=dropout_p)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/moment_ts/lib/python3.11/site-packages/torch/nn/functional.py", line 1441, in dropout
+    _VF.dropout_(input, p, training) if inplace else _VF.dropout(input, p, training)
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

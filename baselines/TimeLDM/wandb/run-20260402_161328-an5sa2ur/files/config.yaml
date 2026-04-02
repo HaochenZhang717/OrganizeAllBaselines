@@ -1,0 +1,126 @@
+_wandb:
+    value:
+        cli_version: 0.25.1
+        e:
+            v7oz5z40y6sz4f8chqb8v8gefi06obtc:
+                apple:
+                    ecpuCores: 6
+                    gpuCores: 18
+                    memoryGb: 36
+                    name: Apple M3 Pro
+                    pcpuCores: 6
+                    ramTotalBytes: "38654705664"
+                args:
+                    - --name
+                    - energy
+                    - --config_file
+                    - Config/energy.yaml
+                    - --stage
+                    - vae
+                    - --train
+                    - --lr
+                    - "1e-3"
+                    - --batch_size
+                    - "64"
+                codePath: baselines/TimeLDM/main.py
+                codePathLocal: main.py
+                cpu_count: 12
+                cpu_count_logical: 12
+                disk:
+                    /:
+                        total: "994662584320"
+                        used: "741850656768"
+                email: haochen235@g.ucla.edu
+                executable: /opt/anaconda3/envs/moment_ts/bin/python
+                git:
+                    commit: 9d2fbc6e0b753b3a3cc51dff91ef020806900b8a
+                    remote: git@github.com:HaochenZhang717/OrganizeAllBaselines.git
+                host: haochens-mbp.dyndns.rice.edu
+                memory:
+                    total: "38654705664"
+                os: macOS-14.3-arm64-arm-64bit
+                program: /Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeLDM/main.py
+                python: CPython 3.11.0
+                root: /Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeLDM
+                startedAt: "2026-04-02T21:13:28.213238Z"
+                writerId: v7oz5z40y6sz4f8chqb8v8gefi06obtc
+        m: []
+        python_version: 3.11.0
+        t:
+            "1":
+                - 1
+                - 5
+                - 53
+            "2":
+                - 1
+                - 5
+                - 53
+            "3":
+                - 13
+                - 16
+            "4": 3.11.0
+            "5": 0.25.1
+            "12": 0.25.1
+            "13": darwin-arm64
+dataloader:
+    value:
+        batch_size: 64
+        sample_size: 1024
+        shuffle: true
+        train_dataset:
+            params:
+                data_root: ../../processed/energy_data
+                name: energy
+                output_dir: ./Checkpoints_energy
+                seed: 123
+                split: train
+            target: Utils.Data_utils.npy_datasets.PreSplitNPYDataset
+        valid_dataset:
+            params:
+                data_root: ../../processed/energy_data
+                name: energy
+                seed: 123
+                split: valid
+            target: Utils.Data_utils.npy_datasets.PreSplitNPYDataset
+ldm_model:
+    value:
+        params:
+            dropout: 0
+            hidden_dim: 1024
+            latent_dim: 32
+            num_layers: 4
+            seq_len: 128
+        target: models.ldm.LDMDenoiser
+solver:
+    value:
+        ldm:
+            base_lr: 0.0001
+            eval_every: 500
+            max_epochs: 1000
+            num_sampling_steps: 200
+            results_folder: ./Checkpoints_energy/ldm
+            t_max: 1
+            t_min: 0.01
+        vae:
+            base_lr: 0.001
+            eval_every: 100
+            lambda1: 1
+            lambda2: 1
+            lambda3: 1
+            max_epochs: 500
+            results_folder: ./Checkpoints_energy/vae/LR0.001-BS64
+vae_model:
+    value:
+        params:
+            beta_lambda: 0.7
+            beta_max: 0.01
+            beta_min: 1e-05
+            beta_patience: 50
+            dec_layers: 3
+            dropout: 0.1
+            enc_layers: 2
+            input_dim: 28
+            latent_dim: 32
+            num_heads: 4
+            seq_len: 128
+        target: models.vae.VAE

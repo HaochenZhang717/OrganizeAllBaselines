@@ -6,8 +6,8 @@ import numpy as np
 from pathlib import Path
 from torch.optim import Adam
 import wandb
-from evaluation_metrics.fid import compute_fid
 from evaluation_metrics.discriminative_torch import discriminative_score_metrics
+from evaluation_metrics.ts2vec.context_fid import Context_FID
 
 
 class Trainer:
@@ -74,7 +74,7 @@ class Trainer:
         # ── FID ───────────────────────────────────────────────────────────────
         real_t = torch.tensor(eval_real.astype(np.float32))
         fake_t = torch.tensor(fake_np.astype(np.float32))
-        fid_val = compute_fid(real_t, fake_t, ckpt_path=self.fid_vae_ckpt)['fid']
+        fid_val = Context_FID(real_t, fake_t)
 
         # ── Discriminative score ──────────────────────────────────────────────
         disc_val = discriminative_score_metrics(

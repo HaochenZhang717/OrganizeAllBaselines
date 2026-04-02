@@ -1,0 +1,49 @@
+{
+  "os": "macOS-14.3-arm64-arm-64bit",
+  "python": "CPython 3.11.0",
+  "startedAt": "2026-04-02T21:13:28.213238Z",
+  "args": [
+    "--name",
+    "energy",
+    "--config_file",
+    "Config/energy.yaml",
+    "--stage",
+    "vae",
+    "--train",
+    "--lr",
+    "1e-3",
+    "--batch_size",
+    "64"
+  ],
+  "program": "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeLDM/main.py",
+  "codePath": "baselines/TimeLDM/main.py",
+  "codePathLocal": "main.py",
+  "git": {
+    "remote": "git@github.com:HaochenZhang717/OrganizeAllBaselines.git",
+    "commit": "9d2fbc6e0b753b3a3cc51dff91ef020806900b8a"
+  },
+  "email": "haochen235@g.ucla.edu",
+  "root": "/Users/zhc/Documents/PhD/projects/OrganizeAllBaselines/baselines/TimeLDM",
+  "host": "haochens-mbp.dyndns.rice.edu",
+  "executable": "/opt/anaconda3/envs/moment_ts/bin/python",
+  "cpu_count": 12,
+  "cpu_count_logical": 12,
+  "disk": {
+    "/": {
+      "total": "994662584320",
+      "used": "741850656768"
+    }
+  },
+  "memory": {
+    "total": "38654705664"
+  },
+  "apple": {
+    "name": "Apple M3 Pro",
+    "ecpuCores": 6,
+    "pcpuCores": 6,
+    "gpuCores": 18,
+    "memoryGb": 36,
+    "ramTotalBytes": "38654705664"
+  },
+  "writerId": "v7oz5z40y6sz4f8chqb8v8gefi06obtc"
+}

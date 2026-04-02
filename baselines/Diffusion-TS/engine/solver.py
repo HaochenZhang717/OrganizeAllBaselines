@@ -12,13 +12,8 @@ from torch.nn.utils import clip_grad_norm_
 from Utils.io_utils import instantiate_from_config, get_model_parameters_info
 import copy
 import wandb
-
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))
-
-from evaluation_metrics.fid import FIDVAE, compute_fid
 from evaluation_metrics.discriminative_torch import discriminative_score_metrics
-
+from evaluation_metrics.ts2vec.context_fid import Context_FID
 
 class Trainer(object):
     def __init__(self, config, args, model, dataloader):
@@ -98,7 +93,8 @@ class Trainer(object):
         # ── FID ──────────────────────────────────────────────────────────────
         real_t = torch.tensor(real_np.astype(np.float32))  # (N, T, C)
         fake_t = torch.tensor(fake_np.astype(np.float32))  # (N, T, C)
-        fid_val = compute_fid(real_t, fake_t, ckpt_path=self.fid_vae_ckpt)['fid']
+        # fid_val = compute_fid(real_t, fake_t, ckpt_path=self.fid_vae_ckpt)['fid']
+        fid_val = Context_FID(real_t, fake_t)
 
         # ── Discriminative score ─────────────────────────────────────────────
         disc_val = discriminative_score_metrics(

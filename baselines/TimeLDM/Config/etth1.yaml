@@ -1,0 +1,63 @@
+vae_model:
+  target: models.vae.VAE
+  params:
+    input_dim: 28
+    seq_len: 128
+    latent_dim: 32
+    num_heads: 4        # latent_dim (32) must be divisible by num_heads (4) ✓
+    enc_layers: 2
+    dec_layers: 3
+    dropout: 0.1
+    beta_max: 1.0e-2
+    beta_min: 1.0e-5
+    beta_lambda: 0.7
+    beta_patience: 50
+
+ldm_model:
+  target: models.ldm.LDMDenoiser
+  params:
+    seq_len: 128
+    latent_dim: 32
+    hidden_dim: 1024
+    num_layers: 4
+    dropout: 0.0
+
+solver:
+  vae:
+    base_lr: 1.0e-3
+    max_epochs: 500
+    results_folder: ./Checkpoints_etth1/vae
+    eval_every: 100
+    lambda1: 1.0    # L2 weight
+    lambda2: 1.0    # L1 weight
+    lambda3: 1.0    # FFT weight
+
+  ldm:
+    base_lr: 1.0e-4
+    max_epochs: 1000
+    results_folder: ./Checkpoints_etth1/ldm
+    eval_every: 500
+    t_min: 0.01
+    t_max: 1.0
+    num_sampling_steps: 200
+
+dataloader:
+  train_dataset:
+    target: Utils.Data_utils.npy_datasets.PreSplitNPYDataset
+    params:
+      name: ETTh1
+      data_root: ../../processed/ETTh1
+      split: train
+      seed: 123
+
+  valid_dataset:
+    target: Utils.Data_utils.npy_datasets.PreSplitNPYDataset
+    params:
+      name: ETTh1
+      data_root: ../../processed/ETTh1
+      split: valid
+      seed: 123
+
+  batch_size: 1024
+  sample_size: 1024
+  shuffle: True
