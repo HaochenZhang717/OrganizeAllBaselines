@@ -72,6 +72,7 @@ class TS2Vec:
         assert train_data.ndim == 3
         
         if n_iters is None and n_epochs is None:
+            breakpoint()
             n_iters = 200 if train_data.size <= 100000 else 600  # default param for n_iters
         
         if self.max_train_length is not None:
