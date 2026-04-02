@@ -71,16 +71,14 @@ class Trainer(object):
 
     # ── Evaluation ────────────────────────────────────────────────────────────
 
-    def _collect_eval_real(self, max_samples: int = 512) -> np.ndarray:
+    def _collect_eval_real(self) -> np.ndarray:
         """Collect up to max_samples windows from the validation set."""
         batches = []
         collected = 0
         for batch in self.valid_dataloader:
             batches.append(batch)
             collected += batch.shape[0]
-            if collected >= max_samples:
-                break
-        return torch.cat(batches, dim=0)[:max_samples].numpy()  # (N, T, C)
+        return torch.cat(batches, dim=0).numpy()  # (N, T, C)
 
     def _eval_metrics(self, epoch: int, real_np: np.ndarray):
         """Generate samples and log FID + discriminative score to wandb."""
@@ -114,7 +112,7 @@ class Trainer(object):
 
     def train(self):
         # Collect fixed real validation windows once for evaluation
-        eval_real = self._collect_eval_real(max_samples=512)
+        eval_real = self._collect_eval_real()
         seq_len, feature_size = eval_real.shape[1], eval_real.shape[2]
 
         step = 0

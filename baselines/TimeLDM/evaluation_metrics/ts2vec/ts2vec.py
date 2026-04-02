@@ -73,7 +73,7 @@ class TS2Vec:
         
         if n_iters is None and n_epochs is None:
             breakpoint()
-            n_iters = 200 if train_data.size <= 100000 else 600  # default param for n_iters
+            n_iters = 200 if train_data.shape <= 100000 else 600  # default param for n_iters
         
         if self.max_train_length is not None:
             sections = train_data.shape[1] // self.max_train_length

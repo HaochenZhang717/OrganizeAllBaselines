@@ -326,14 +326,12 @@ class LDMTrainer:
 
     # ── Evaluation ───────────────────────────────────────────────────────────
 
-    def _collect_eval_real(self, max_samples: int = 512) -> np.ndarray:
+    def _collect_eval_real(self) -> np.ndarray:
         batches, collected = [], 0
         for batch in self.valid_dataloader:
             batches.append(batch)
             collected += batch.shape[0]
-            if collected >= max_samples:
-                break
-        return torch.cat(batches, dim=0)[:max_samples].numpy()
+        return torch.cat(batches, dim=0).numpy()
 
     def _eval_metrics(self, epoch: int, real_np: np.ndarray):
         window, var_num = real_np.shape[1], real_np.shape[2]
@@ -358,7 +356,7 @@ class LDMTrainer:
     # ── Training loop ────────────────────────────────────────────────────────
 
     def train(self):
-        eval_real = self._collect_eval_real(max_samples=512)
+        eval_real = self._collect_eval_real()
         best_val_loss = float('inf')
 
         for epoch in range(self.max_epochs):
@@ -417,6 +415,8 @@ class LDMTrainer:
 
                 print(f"[LDM] Epoch {epoch:5d} [val]: loss={val_loss_avg:.6f}")
                 wandb.log({'valid/loss': val_loss_avg, 'epoch': epoch})
+
+                self.save(str(epoch))
 
                 if val_loss_avg < best_val_loss:
                     best_val_loss = val_loss_avg
