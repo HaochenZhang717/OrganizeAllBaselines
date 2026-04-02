@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from losses import vae_loss, ldm_loss
 from models.ldm import sample_time, add_noise
 from evaluation_metrics.discriminative_torch import discriminative_score_metrics
-from evaluation_metrics.context_fid import Context_FID
+from evaluation_metrics.ts2vec.context_fid import Context_FID
 
 
 # ─────────────────────────────────────────────────────────────────────────────
