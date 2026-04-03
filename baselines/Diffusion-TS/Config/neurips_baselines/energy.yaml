@@ -21,7 +21,6 @@ solver:
   base_lr: 1.0e-5
   max_epochs: 25000
   results_folder: ./Checkpoints_energy
-  gradient_accumulate_every: 2
   save_cycle: 2500  # max_epochs // 10
   ema:
     decay: 0.995
