@@ -16,11 +16,12 @@ vae_model:
 ldm_model:
   target: models.ldm.LDMDenoiser
   params:
-    seq_len: 128
+    seq_len: 24
     latent_dim: 32
-    hidden_dim: 1024
+    hidden_dim: 128
     num_layers: 4
-    dropout: 0.0
+    n_heads: 8
+    dropout: 0.1
 
 solver:
   vae:

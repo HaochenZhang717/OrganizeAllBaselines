@@ -23,7 +23,7 @@ LOG_DIR="${ROOT_DIR}/logs"
 mkdir -p "${LOG_DIR}"
 
 # ── GPU list ──────────────────────────────────────────────────────────────────
-GPU_STR="${1:-0,1}"
+GPU_STR="${1:-0,1,2,3,4,5,6,7}"
 IFS=',' read -ra GPUS <<< "${GPU_STR}"
 NUM_GPUS=${#GPUS[@]}
 echo "GPUs to use : ${GPUS[*]}"

@@ -51,51 +51,67 @@ class SinusoidalTimeEmbedding(nn.Module):
 
 class LDMDenoiser(nn.Module):
     """
-    MLP denoiser for the latent diffusion model.
+    Transformer-encoder denoiser for the latent diffusion model.
+
+    Each position in the latent sequence (B, seq_len, latent_dim) is treated
+    as a token.  A sinusoidal time embedding is projected to d_model and added
+    to every token before the encoder stack, so the denoiser is conditioned on
+    the diffusion time step.
 
     Args:
         seq_len:       tau, sequence length
-        latent_dim:    m, latent dimension
-        hidden_dim:    MLP hidden dimension (paper: 1024 or 4096)
-        num_layers:    number of hidden linear layers (paper: 4)
-        time_emb_dim:  dimension of time sinusoidal embedding (default = hidden_dim)
-        dropout:       dropout probability
+        latent_dim:    m, latent dimension per position
+        hidden_dim:    transformer d_model
+        num_layers:    number of TransformerEncoderLayer blocks
+        n_heads:       number of attention heads (hidden_dim must be divisible by n_heads)
+        time_emb_dim:  sinusoidal embedding dim before projection (default = hidden_dim)
+        dropout:       dropout used in attention and feed-forward sub-layers
     """
     def __init__(
         self,
         seq_len: int,
         latent_dim: int = 32,
-        hidden_dim: int = 1024,
+        hidden_dim: int = 256,
         num_layers: int = 4,
-        time_emb_dim: int = None,
+        n_heads: int = 8,
         dropout: float = 0.0,
     ):
         super().__init__()
         self.seq_len = seq_len
         self.latent_dim = latent_dim
         self.hidden_dim = hidden_dim
-        flat_dim = seq_len * latent_dim
-        time_emb_dim = time_emb_dim or hidden_dim
 
-        # Time embedding
+        time_emb_dim = hidden_dim
+
+        # Time embedding: scalar t -> (B, hidden_dim), broadcast to all positions
         self.time_embed = SinusoidalTimeEmbedding(time_emb_dim)
         self.time_proj = nn.Linear(time_emb_dim, hidden_dim)
 
-        # Input projection
-        self.input_proj = nn.Linear(flat_dim, hidden_dim)
+        # Per-position input projection: latent_dim -> hidden_dim
+        self.input_proj = nn.Linear(latent_dim, hidden_dim)
 
-        # Hidden MLP layers
-        layers = []
-        for _ in range(num_layers):
-            layers += [
-                nn.Linear(hidden_dim, hidden_dim),
-                nn.SiLU(),
-                nn.Dropout(dropout),
-            ]
-        self.mlp = nn.Sequential(*layers)
+        # Learnable positional embedding
+        self.pos_embed = nn.Parameter(torch.zeros(1, seq_len, hidden_dim))
+        nn.init.trunc_normal_(self.pos_embed, std=0.02)
 
-        # Output projection
-        self.output_proj = nn.Linear(hidden_dim, flat_dim)
+        # Transformer encoder (Pre-LN for training stability)
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=hidden_dim,
+            nhead=n_heads,
+            dim_feedforward=hidden_dim * 4,
+            dropout=dropout,
+            activation='gelu',
+            batch_first=True,
+            norm_first=True,
+        )
+        self.transformer = nn.TransformerEncoder(
+            encoder_layer,
+            num_layers=num_layers,
+            norm=nn.LayerNorm(hidden_dim),
+        )
+
+        # Per-position output projection: hidden_dim -> latent_dim
+        self.output_proj = nn.Linear(hidden_dim, latent_dim)
 
     def forward(self, z_t: torch.Tensor, t: torch.Tensor):
         """
@@ -107,24 +123,21 @@ class LDMDenoiser(nn.Module):
         Returns:
             eps_pred: (B, seq_len, latent_dim) - predicted noise
         """
-        B = z_t.shape[0]
+        # Project each position: (B, seq_len, latent_dim) -> (B, seq_len, hidden_dim)
+        h = self.input_proj(z_t)
+        breakpoint()
+        # Add positional embedding
+        h = h + self.pos_embed                               # (B, seq_len, hidden_dim)
 
-        # Flatten
-        h = z_t.reshape(B, -1)                # (B, flat_dim)
+        # Add time embedding (same value broadcast across all positions)
+        t_emb = self.time_proj(self.time_embed(t))           # (B, hidden_dim)
+        h = h + t_emb.unsqueeze(1)                           # (B, seq_len, hidden_dim)
 
-        # Project input
-        h = self.input_proj(h)                # (B, hidden_dim)
+        # Transformer encoder
+        h = self.transformer(h)                              # (B, seq_len, hidden_dim)
 
-        # Add time embedding
-        t_emb = self.time_proj(self.time_embed(t))  # (B, hidden_dim)
-        h = h + t_emb
-
-        # MLP
-        h = self.mlp(h)                       # (B, hidden_dim)
-
-        # Output
-        h = self.output_proj(h)               # (B, flat_dim)
-        eps_pred = h.reshape(B, self.seq_len, self.latent_dim)
+        # Project back to latent space
+        eps_pred = self.output_proj(h)                       # (B, seq_len, latent_dim)
         return eps_pred
 
 
