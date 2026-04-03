@@ -24,7 +24,7 @@ class BaseVariationalAutoencoder(nn.Module, ABC):
         seq_len,
         feat_dim,
         latent_dim,
-        reconstruction_wt=3.0,
+        kl_wt=0.001,
         batch_size=16,
         **kwargs
     ):
@@ -32,7 +32,7 @@ class BaseVariationalAutoencoder(nn.Module, ABC):
         self.seq_len = seq_len
         self.feat_dim = feat_dim
         self.latent_dim = latent_dim
-        self.reconstruction_wt = reconstruction_wt
+        self.kl_wt = kl_wt
         self.batch_size = batch_size
         self.encoder = None
         self.decoder = None
@@ -134,7 +134,7 @@ class BaseVariationalAutoencoder(nn.Module, ABC):
     def loss_function(self, X, X_recons, z_mean, z_log_var):
         reconstruction_loss = self._get_reconstruction_loss(X, X_recons)
         kl_loss = -0.5 * torch.sum(1 + z_log_var - z_mean.pow(2) - z_log_var.exp())
-        total_loss = self.reconstruction_wt * reconstruction_loss + kl_loss
+        total_loss = reconstruction_loss + self.kl_wt * kl_loss
         return total_loss, reconstruction_loss, kl_loss
 
     def save_weights(self, model_dir):
@@ -155,7 +155,7 @@ class BaseVariationalAutoencoder(nn.Module, ABC):
             "seq_len": self.seq_len,
             "feat_dim": self.feat_dim,
             "latent_dim": self.latent_dim,
-            "reconstruction_wt": self.reconstruction_wt,
+            "kl_wt": self.kl_wt,
             "hidden_layer_sizes": list(self.hidden_layer_sizes) if hasattr(self, 'hidden_layer_sizes') else None,
         }
         params_file = os.path.join(model_dir, f"{self.model_name}_parameters.pkl")

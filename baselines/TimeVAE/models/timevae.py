@@ -182,6 +182,7 @@ class TimeVAEEncoder(nn.Module):
                 x = conv(x)
             return x.numel()
 
+
 class TimeVAEDecoder(nn.Module):
     def __init__(self, seq_len, feat_dim, hidden_layer_sizes, latent_dim, trend_poly=0, custom_seas=None, use_residual_conn=True, encoder_last_dense_dim=None):
         super(TimeVAEDecoder, self).__init__()
@@ -195,19 +196,24 @@ class TimeVAEDecoder(nn.Module):
         self.encoder_last_dense_dim = encoder_last_dense_dim
         self.level_model = LevelModel(self.latent_dim, self.feat_dim, self.seq_len)
 
+        self.trend_layer = None
+        if trend_poly is not None and trend_poly > 0:
+            self.trend_layer = TrendLayer(seq_len, feat_dim, latent_dim, trend_poly)
+
+        self.seasonal_layer = None
+        if custom_seas is not None and len(custom_seas) > 0:
+            self.seasonal_layer = SeasonalLayer(seq_len, feat_dim, latent_dim, custom_seas)
+
         if use_residual_conn:
             self.residual_conn = ResidualConnection(seq_len, feat_dim, hidden_layer_sizes, latent_dim, encoder_last_dense_dim)
 
     def forward(self, z):
         outputs = self.level_model(z)
-        if self.trend_poly is not None and self.trend_poly > 0:
-            trend_vals = TrendLayer(self.seq_len, self.feat_dim, self.latent_dim, self.trend_poly)(z)
-            outputs += trend_vals
+        if self.trend_layer is not None:
+            outputs += self.trend_layer(z)
 
-        # custom seasons
-        if self.custom_seas is not None and len(self.custom_seas) > 0:
-            cust_seas_vals = SeasonalLayer(self.seq_len, self.feat_dim, self.latent_dim, self.custom_seas)(z)
-            outputs += cust_seas_vals
+        if self.seasonal_layer is not None:
+            outputs += self.seasonal_layer(z)
 
         if self.use_residual_conn:
             residuals = self.residual_conn(z)
@@ -263,7 +269,7 @@ class TimeVAE(BaseVariationalAutoencoder):
             "seq_len": self.seq_len,
             "feat_dim": self.feat_dim,
             "latent_dim": self.latent_dim,
-            "reconstruction_wt": self.reconstruction_wt,
+            "kl_wt": self.kl_wt,
             "hidden_layer_sizes": list(self.hidden_layer_sizes),
             "trend_poly": self.trend_poly,
             "custom_seas": self.custom_seas,

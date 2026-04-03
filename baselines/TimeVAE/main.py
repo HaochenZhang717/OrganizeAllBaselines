@@ -57,7 +57,7 @@ def main():
         seq_len=m_cfg['seq_len'],
         feat_dim=m_cfg['feat_dim'],
         latent_dim=m_cfg['latent_dim'],
-        reconstruction_wt=m_cfg.get('reconstruction_wt', 3.0),
+        kl_wt=m_cfg.get('kl_wt', 0.001),
         hidden_layer_sizes=m_cfg.get('hidden_layer_sizes', [32, 64, 128]),
         trend_poly=m_cfg.get('trend_poly', 0),
         custom_seas=m_cfg.get('custom_seas', None),
