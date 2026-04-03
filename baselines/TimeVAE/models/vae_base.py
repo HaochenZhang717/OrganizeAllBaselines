@@ -38,51 +38,9 @@ class BaseVariationalAutoencoder(nn.Module, ABC):
         self.decoder = None
         self.sampling = Sampling()
 
-    # def fit_on_data(self, train_data, max_epochs=1000, verbose=0):
-    #     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    #     self.to(device)
-    #
-    #     train_tensor = torch.FloatTensor(train_data).to(device)
-    #     train_dataset = TensorDataset(train_tensor)
-    #     train_loader = DataLoader(train_dataset, batch_size=self.batch_size, shuffle=True)
-    #
-    #     optimizer = optim.Adam(self.parameters())
-    #
-    #     for epoch in range(max_epochs):
-    #         self.train()
-    #         total_loss = 0
-    #         reconstruction_loss = 0
-    #         kl_loss = 0
-    #
-    #         for batch in train_loader:
-    #             X = batch[0]
-    #             optimizer.zero_grad()
-    #
-    #             z_mean, z_log_var, z = self.encoder(X)
-    #             reconstruction = self.decoder(z)
-    #
-    #             loss, recon_loss, kl = self.loss_function(X, reconstruction, z_mean, z_log_var)
-    #
-    #             # Normalize the loss by the batch size
-    #             loss = loss / X.size(0)
-    #             recon_loss = recon_loss / X.size(0)
-    #             kl = kl / X.size(0)
-    #
-    #             loss.backward()
-    #             optimizer.step()
-    #
-    #             total_loss += loss.item()
-    #             reconstruction_loss += recon_loss.item()
-    #             kl_loss += kl.item()
-    #
-    #         if verbose:
-    #             print(f"Epoch {epoch + 1}/{max_epochs} | Total loss: {total_loss / len(train_loader):.4f} | "
-    #                 f"Recon loss: {reconstruction_loss / len(train_loader):.4f} | "
-    #                 f"KL loss: {kl_loss / len(train_loader):.4f}")
-
     def forward(self, X):
         z_mean, z_log_var, z = self.encoder(X)
-        x_decoded = self.decoder(z_mean)
+        x_decoded = self.decoder(z)
         return x_decoded
     
     def predict(self, X):

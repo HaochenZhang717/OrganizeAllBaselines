@@ -10,6 +10,7 @@ from tqdm.auto import tqdm
 from torch.optim import Adam
 from torch.nn.utils import clip_grad_norm_
 from Utils.io_utils import instantiate_from_config, get_model_parameters_info
+from engine.lr_sch import ReduceLROnPlateauWithWarmup
 import copy
 import wandb
 from evaluation_metrics.discriminative_torch import discriminative_score_metrics
@@ -32,6 +33,15 @@ class Trainer(object):
 
         start_lr = config['solver'].get('base_lr', 1.0e-4)
         self.opt = Adam(filter(lambda p: p.requires_grad, self.model.parameters()), lr=start_lr)
+
+        self.sch = ReduceLROnPlateauWithWarmup(
+            self.opt,
+            mode='min',
+            factor=config['solver'].get('lr_decay_factor', 0.5),
+            patience=config['solver'].get('lr_patience', 10),
+            warmup=config['solver'].get('warmup', 0),
+            warmup_lr=config['solver'].get('warmup_lr', None),
+        )
 
         self.ema_decay = 0.999
         self.ema_model = copy.deepcopy(self.model).to(self.device)
@@ -136,8 +146,9 @@ class Trainer(object):
                 step += 1
                 self.update_ema()
             train_loss_avg = train_loss_avg / len(self.train_dataloader)
+            self.sch.step(train_loss_avg)
             toc = time.time()
-            print(f"Epoch {epoch}: Train Loss: {train_loss_avg:.6f}, Time: {toc - tic:.2f}s")
+            print(f"Epoch {epoch}: Train Loss: {train_loss_avg:.6f}, LR: {self.opt.param_groups[0]['lr']:.2e}, Time: {toc - tic:.2f}s")
             wandb.log({
                 "train/epoch_loss": train_loss_avg,
                 "train/learning_rate": self.opt.param_groups[0]['lr'],

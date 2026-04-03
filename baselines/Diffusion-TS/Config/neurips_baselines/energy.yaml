@@ -1,7 +1,7 @@
 model:
   target: Models.interpretable_diffusion.gaussian_diffusion.Diffusion_TS
   params:
-    seq_length: 128
+    seq_length: 24
     feature_size: 28
     n_layer_enc: 4
     n_layer_dec: 3

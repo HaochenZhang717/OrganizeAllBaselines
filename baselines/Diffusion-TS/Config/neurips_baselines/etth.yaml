@@ -1,7 +1,7 @@
 model:
   target: Models.interpretable_diffusion.gaussian_diffusion.Diffusion_TS
   params:
-    seq_length: 128
+    seq_length: 24
     feature_size: 7
     n_layer_enc: 3
     n_layer_dec: 2
@@ -48,7 +48,7 @@ dataloader:
     params:
       name: etth1
       data_root: ../../processed/ETTh1
-      split: valid
+      split: train
       seed: 123
 
   batch_size: 128
