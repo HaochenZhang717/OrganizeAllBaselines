@@ -40,8 +40,10 @@ TASKS=(
   # "TimeGAN:run_energy.sh"
 #  "TimeVAE:run_etth.sh"
 #  "TimeVAE:run_energy.sh"
-   "TimeLDM:run_energy_vae.sh:run_energy_ldm.sh"   # stage-1 then stage-2
-   "TimeLDM:run_etth1_vae.sh:run_etth1_ldm.sh"   # stage-1 then stage-2
+#   "TimeLDM:run_energy_vae.sh:run_energy_ldm.sh"   # stage-1 then stage-2
+#   "TimeLDM:run_etth1_vae.sh:run_etth1_ldm.sh"   # stage-1 then stage-2
+   "TimeLDM:run_energy_ldm.sh"   # stage-1 then stage-2
+   "TimeLDM:run_etth1_ldm.sh"   # stage-1 then stage-2
 )
 
 # ── GPU-aware runner ──────────────────────────────────────────────────────────

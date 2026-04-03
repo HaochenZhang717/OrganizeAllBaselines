@@ -125,7 +125,7 @@ class LDMDenoiser(nn.Module):
         """
         # Project each position: (B, seq_len, latent_dim) -> (B, seq_len, hidden_dim)
         h = self.input_proj(z_t)
-        breakpoint()
+        # breakpoint()
         # Add positional embedding
         h = h + self.pos_embed                               # (B, seq_len, hidden_dim)
 
