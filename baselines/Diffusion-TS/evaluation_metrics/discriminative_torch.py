@@ -1,70 +1,42 @@
 import torch
 import numpy as np
 import torch.nn as nn
+import torchaudio
 from sklearn.metrics import accuracy_score
 
 
-def discriminative_score_metrics(ori_data, generated_data, input_size, device,):
+def discriminative_score_metrics(ori_data, generated_data, args):
     # Basic Parameters
     ori_data, generated_data = torch.Tensor(ori_data), torch.Tensor(generated_data)
-    # print(f"ori_data.shape: {ori_data.shape}")
-    # print(f"generated_data.shape: {generated_data.shape}")
     ## Builde a post-hoc RNN discriminator network
     # Network parameters
-    hidden_dim = max(int(input_size / 2), 32)
+    hidden_dim = int(args.input_size / 2)
     iterations = 2000
     batch_size = 32
 
-    # class Discriminator(nn.Module):
-    #     def __init__(self, inp_dim, hidden_dim):
-    #         super(Discriminator, self).__init__()
-    #
-    #         # tensor should be [b,l,c]
-    #         self.rnn = nn.GRU(input_size=inp_dim, hidden_size=hidden_dim, bidirectional=False,
-    #                           num_layers=1, batch_first=True)
-    #
-    #         self.linear = nn.Linear(hidden_dim, 1)
-    #
-    #     def forward(self, x):
-    #         _, last_hidden_state = self.rnn(x)
-    #         last_hidden_state = last_hidden_state.squeeze(0)
-    #         y_hat_logit = self.linear(last_hidden_state)
-    #         y_hat = nn.functional.sigmoid(y_hat_logit)
-    #         return y_hat_logit, y_hat
+    device = args.device
 
     class Discriminator(nn.Module):
-        def __init__(self, input_channels, hidden_dim=64):
-            super().__init__()
+        def __init__(self, inp_dim, hidden_dim):
+            super(Discriminator, self).__init__()
 
-            self.net = nn.Sequential(
-                # (B, C, T)
-                nn.Conv1d(input_channels, hidden_dim, kernel_size=5, padding=2),
-                nn.ReLU(),
+            # the input dim: [batch,channel,length]
+            # self.enc_net = nn.Sequential(
+            #     BatchLinearUnit(fft_size // 2 + 1, fft_size // 2 + 1, nonlinearity=nn.Tanh()))
 
-                nn.Conv1d(hidden_dim, hidden_dim, kernel_size=5, padding=2),
-                nn.ReLU(),
+            # tensor should be [b,l,c]
+            self.rnn = nn.GRU(input_size=inp_dim, hidden_size=hidden_dim, bidirectional=False,
+                              num_layers=1, batch_first=True)
 
-                nn.Conv1d(hidden_dim, hidden_dim, kernel_size=5, padding=2),
-                nn.ReLU(),
-
-                # global pooling
-                nn.AdaptiveAvgPool1d(1),  # → (B, H, 1)
-            )
-
-            self.fc = nn.Linear(hidden_dim, 1)
+            self.linear = nn.Linear(hidden_dim, 1)
 
         def forward(self, x):
-            # x: (B, T, C)
-            x = x.permute(0, 2, 1)  # → (B, C, T)
+            _, last_hidden_state = self.rnn(x)
+            y_hat_logit = self.linear(last_hidden_state)
+            y_hat = nn.functional.sigmoid(y_hat_logit)
+            return y_hat_logit, y_hat
 
-            h = self.net(x)  # (B, H, 1)
-            h = h.squeeze(-1)  # (B, H)
-
-            logit = self.fc(h)  # (B, 1)
-            return logit, nn.functional.sigmoid(logit)
-
-
-    model = Discriminator(input_size, hidden_dim).to(device)
+    model = Discriminator(args.input_size, hidden_dim).to(device)
     optimizer = torch.optim.Adam(model.parameters())
 
     train_x, train_x_hat, test_x, test_x_hat = train_test_divide(ori_data, generated_data)
@@ -72,7 +44,6 @@ def discriminative_score_metrics(ori_data, generated_data, input_size, device,):
     train_loss = 0.0
 
     model.train()
-    best_accuracy = 0.5
     # Training step
     for itt in range(iterations):
         # Batch setting
@@ -84,6 +55,7 @@ def discriminative_score_metrics(ori_data, generated_data, input_size, device,):
 
         real_labels = torch.ones_like(y_logit_real)
         fake_labels = torch.zeros_like(y_logit_fake)
+
         d_loss_real = nn.functional.binary_cross_entropy_with_logits(y_logit_real, real_labels).mean()
         d_loss_fake = nn.functional.binary_cross_entropy_with_logits(y_logit_fake, fake_labels).mean()
 
@@ -94,27 +66,33 @@ def discriminative_score_metrics(ori_data, generated_data, input_size, device,):
         optimizer.step()
 
         train_loss += d_loss.cpu().item()
-        if itt % 100 == 0:
-            model.eval()
-            with torch.no_grad():
-                test_x_tensor = torch.stack(test_x).to(device).float()
-                test_x_hat_tensor = torch.stack(test_x_hat).to(device).float()
-                _, y_pred_real_curr = model(test_x_tensor)
-                _, y_pred_fake_curr = model(test_x_hat_tensor)
 
-                y_pred_real_curr = y_pred_real_curr.detach().cpu().numpy()
-                y_pred_fake_curr = y_pred_fake_curr.detach().cpu().numpy()
+    #     if itt % 100 == 0:
+    #         # record the loss
+    #         print('{}: train loss: {:.4f}'.format(itt, d_loss.cpu().item()))
+    #
+    #
+    # print('final train loss: {:.4f}'.format(train_loss / iterations))
 
-                y_pred_final = np.squeeze(np.concatenate((y_pred_real_curr, y_pred_fake_curr), axis=0))
-                y_label_final = np.concatenate(
-                    (np.ones([y_pred_real_curr.shape[0], ]), np.zeros([y_pred_fake_curr.shape[0], ])),
-                    axis=0)
-                # Compute the accuracy
-                acc = accuracy_score(y_label_final, (y_pred_final > 0.5).reshape(-1))
-                if best_accuracy < acc:
-                    best_accuracy = acc
-            model.train()
-    discriminative_score = np.abs(0.5 - best_accuracy)
+    model.eval()
+    with (torch.no_grad()):
+        test_x = torch.stack(test_x).to(device)
+        test_x_hat = torch.stack(test_x_hat).to(device)
+        _, y_pred_real_curr = model(test_x.float())
+        _, y_pred_fake_curr = model(test_x_hat.float())
+
+        y_pred_real_curr = y_pred_real_curr.detach().cpu().numpy()
+        y_pred_fake_curr = y_pred_fake_curr.detach().cpu().numpy()
+
+        y_pred_final = np.squeeze(np.concatenate((y_pred_real_curr, y_pred_fake_curr), axis=0))
+        y_label_final = np.concatenate(
+            (np.ones([y_pred_real_curr.shape[1], ]), np.zeros([y_pred_fake_curr.shape[1], ])),
+            axis=0)
+
+        # Compute the accuracy
+        acc = accuracy_score(y_label_final, (y_pred_final > 0.5).reshape(-1))
+        discriminative_score = np.abs(0.5 - acc)
+
     return discriminative_score
 
 
@@ -168,11 +146,3 @@ def batch_generator(data, batch_size):
     X_mb = list(data[i] for i in train_idx)
 
     return X_mb
-
-
-
-# if __name__ == "__main__":
-#     model = Discriminator()
-#     ts = torch.randn((4, 1, 128))
-#     model(ts)
-
