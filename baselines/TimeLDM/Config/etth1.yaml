@@ -35,12 +35,12 @@ solver:
 
   ldm:
     base_lr: 0.0001
-    max_epochs: 1000
+    max_epochs: 2000
     results_folder: ./Checkpoints_etth1/ldm
-    eval_every: 500
+    eval_every: 100
     t_min: 0.01
     t_max: 1.0
-    num_sampling_steps: 200
+    num_sampling_steps: 1000
 
 dataloader:
   train_dataset:
