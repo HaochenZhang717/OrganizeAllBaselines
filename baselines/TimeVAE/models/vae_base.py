@@ -136,7 +136,6 @@ class BaseVariationalAutoencoder(nn.Module, ABC):
         # kl_loss = -0.5 * torch.sum(1 + z_log_var - z_mean.pow(2) - z_log_var.exp())
 
         kl = -0.5 * torch.sum(1 + z_log_var - z_mean.pow(2) - z_log_var.exp(), dim=1)
-        breakpoint()
         kl_loss = torch.mean(kl)
 
         total_loss = reconstruction_loss + self.kl_wt * kl_loss
