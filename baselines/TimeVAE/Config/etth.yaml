@@ -4,7 +4,7 @@ model:
   latent_dim: 32
   kl_wt: 0.01
   hidden_layer_sizes: [32, 64, 128]
-  trend_poly: 0
+  trend_poly: 3
   custom_seas: null
   use_residual_conn: true
 

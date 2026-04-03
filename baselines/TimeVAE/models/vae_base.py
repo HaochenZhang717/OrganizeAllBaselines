@@ -11,9 +11,7 @@ import joblib
 class Sampling(nn.Module):
     def forward(self, inputs):
         z_mean, z_log_var = inputs
-        batch = z_mean.size(0)
-        dim = z_mean.size(1)
-        epsilon = torch.randn(batch, dim).to(z_mean.device)
+        epsilon = torch.randn_like(z_mean).to(z_mean.device)
         return z_mean + torch.exp(0.5 * z_log_var) * epsilon
 
 class BaseVariationalAutoencoder(nn.Module, ABC):
@@ -56,7 +54,7 @@ class BaseVariationalAutoencoder(nn.Module, ABC):
 
     def get_prior_samples(self, num_samples):
         device = next(self.parameters()).device
-        Z = torch.randn(num_samples, self.latent_dim).to(device)
+        Z = torch.randn(num_samples, self.seq_len//8, self.latent_dim).to(device)
         samples = self.decoder(Z)
         return samples.cpu().detach().numpy()
 
