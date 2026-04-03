@@ -128,7 +128,6 @@ class BaseVariationalAutoencoder(nn.Module, ABC):
         #
         # reconst_loss += get_reconst_loss_by_axis(X, X_recons, dim=2)  # by time axis
         # reconst_loss += get_reconst_loss_by_axis(X, X_recons, dim=1)  # by feature axis 
-        breakpoint()
         reconst_loss = nn.MSELoss()(X, X_recons)
         return reconst_loss
 
@@ -137,6 +136,7 @@ class BaseVariationalAutoencoder(nn.Module, ABC):
         # kl_loss = -0.5 * torch.sum(1 + z_log_var - z_mean.pow(2) - z_log_var.exp())
 
         kl = -0.5 * torch.sum(1 + z_log_var - z_mean.pow(2) - z_log_var.exp(), dim=1)
+        breakpoint()
         kl_loss = torch.mean(kl)
 
         total_loss = reconstruction_loss + self.kl_wt * kl_loss
