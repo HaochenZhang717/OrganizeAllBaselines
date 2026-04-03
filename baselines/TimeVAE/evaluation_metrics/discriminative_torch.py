@@ -15,53 +15,53 @@ def discriminative_score_metrics(ori_data, generated_data, input_size, device,):
     iterations = 2000
     batch_size = 32
 
-    # class Discriminator(nn.Module):
-    #     def __init__(self, inp_dim, hidden_dim):
-    #         super(Discriminator, self).__init__()
-    #
-    #         # tensor should be [b,l,c]
-    #         self.rnn = nn.GRU(input_size=inp_dim, hidden_size=hidden_dim, bidirectional=False,
-    #                           num_layers=1, batch_first=True)
-    #
-    #         self.linear = nn.Linear(hidden_dim, 1)
-    #
-    #     def forward(self, x):
-    #         _, last_hidden_state = self.rnn(x)
-    #         last_hidden_state = last_hidden_state.squeeze(0)
-    #         y_hat_logit = self.linear(last_hidden_state)
-    #         y_hat = nn.functional.sigmoid(y_hat_logit)
-    #         return y_hat_logit, y_hat
-
     class Discriminator(nn.Module):
-        def __init__(self, input_channels, hidden_dim=64):
-            super().__init__()
+        def __init__(self, inp_dim, hidden_dim):
+            super(Discriminator, self).__init__()
 
-            self.net = nn.Sequential(
-                # (B, C, T)
-                nn.Conv1d(input_channels, hidden_dim, kernel_size=5, padding=2),
-                nn.ReLU(),
+            # tensor should be [b,l,c]
+            self.rnn = nn.GRU(input_size=inp_dim, hidden_size=hidden_dim, bidirectional=False,
+                              num_layers=1, batch_first=True)
 
-                nn.Conv1d(hidden_dim, hidden_dim, kernel_size=5, padding=2),
-                nn.ReLU(),
-
-                nn.Conv1d(hidden_dim, hidden_dim, kernel_size=5, padding=2),
-                nn.ReLU(),
-
-                # global pooling
-                nn.AdaptiveAvgPool1d(1),  # → (B, H, 1)
-            )
-
-            self.fc = nn.Linear(hidden_dim, 1)
+            self.linear = nn.Linear(hidden_dim, 1)
 
         def forward(self, x):
-            # x: (B, T, C)
-            x = x.permute(0, 2, 1)  # → (B, C, T)
+            _, last_hidden_state = self.rnn(x)
+            last_hidden_state = last_hidden_state.squeeze(0)
+            y_hat_logit = self.linear(last_hidden_state)
+            y_hat = nn.functional.sigmoid(y_hat_logit)
+            return y_hat_logit, y_hat
 
-            h = self.net(x)  # (B, H, 1)
-            h = h.squeeze(-1)  # (B, H)
-
-            logit = self.fc(h)  # (B, 1)
-            return logit, nn.functional.sigmoid(logit)
+    # class Discriminator(nn.Module):
+    #     def __init__(self, input_channels, hidden_dim=64):
+    #         super().__init__()
+    #
+    #         self.net = nn.Sequential(
+    #             # (B, C, T)
+    #             nn.Conv1d(input_channels, hidden_dim, kernel_size=5, padding=2),
+    #             nn.ReLU(),
+    #
+    #             nn.Conv1d(hidden_dim, hidden_dim, kernel_size=5, padding=2),
+    #             nn.ReLU(),
+    #
+    #             nn.Conv1d(hidden_dim, hidden_dim, kernel_size=5, padding=2),
+    #             nn.ReLU(),
+    #
+    #             # global pooling
+    #             nn.AdaptiveAvgPool1d(1),  # → (B, H, 1)
+    #         )
+    #
+    #         self.fc = nn.Linear(hidden_dim, 1)
+    #
+    #     def forward(self, x):
+    #         # x: (B, T, C)
+    #         x = x.permute(0, 2, 1)  # → (B, C, T)
+    #
+    #         h = self.net(x)  # (B, H, 1)
+    #         h = h.squeeze(-1)  # (B, H)
+    #
+    #         logit = self.fc(h)  # (B, 1)
+    #         return logit, nn.functional.sigmoid(logit)
 
 
     model = Discriminator(input_size, hidden_dim).to(device)
