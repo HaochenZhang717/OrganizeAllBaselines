@@ -106,7 +106,7 @@ class Trainer:
                 X = batch[0].to(self.device)               # (B, T, C)
                 z_mean, z_log_var, z = self.model.encoder(X)
                 X_recon = self.model.decoder(z)
-                breakpoint()
+
                 loss, recon_loss, kl_loss = self.model.loss_function(X, X_recon, z_mean, z_log_var)
                 loss = loss / X.size(0)
 
