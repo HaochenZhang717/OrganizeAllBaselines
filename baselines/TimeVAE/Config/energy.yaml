@@ -1,5 +1,5 @@
 model:
-  seq_len: 128
+  seq_len: 24
   feat_dim: 28
   latent_dim: 32
   kl_wt: 0.01
