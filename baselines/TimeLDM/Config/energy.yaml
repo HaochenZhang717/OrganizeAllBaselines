@@ -3,7 +3,7 @@ vae_model:
   params:
     input_dim: 28
     seq_len: 24
-    latent_dim: 32
+    latent_dim: 128
     num_heads: 4        # latent_dim (32) must be divisible by num_heads (4) ✓
     enc_layers: 2
     dec_layers: 3
@@ -56,7 +56,7 @@ dataloader:
     params:
       name: energy
       data_root: ../../processed/energy_data
-      split: valid
+      split: train
       seed: 123
 
   batch_size: 1024

@@ -17,7 +17,7 @@ ldm_model:
   target: models.ldm.LDMDenoiser
   params:
     seq_len: 24
-    latent_dim: 32
+    latent_dim: 128
     hidden_dim: 128
     num_layers: 4
     n_heads: 8
@@ -56,7 +56,7 @@ dataloader:
     params:
       name: ETTh1
       data_root: ../../processed/ETTh1
-      split: valid
+      split: train
       seed: 123
 
   batch_size: 1024
