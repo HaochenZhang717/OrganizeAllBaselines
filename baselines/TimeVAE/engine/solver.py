@@ -108,7 +108,6 @@ class Trainer:
                 X_recon = self.model.decoder(z)
 
                 loss, recon_loss, kl_loss = self.model.loss_function(X, X_recon, z_mean, z_log_var)
-                loss = loss / X.size(0)
 
                 self.optimizer.zero_grad()
                 loss.backward()
@@ -116,8 +115,8 @@ class Trainer:
                 self.optimizer.step()
 
                 train_loss  += loss.item()
-                train_recon += (recon_loss / X.size(0)).item()
-                train_kl    += (kl_loss    / X.size(0)).item()
+                train_recon += recon_loss.item()
+                train_kl    += kl_loss.item()
 
             n = len(self.train_loader)
             train_loss  /= n
@@ -133,10 +132,10 @@ class Trainer:
                     z_mean, z_log_var, z = self.model.encoder(X)
                     X_recon = self.model.decoder(z)
                     loss, recon_loss, kl_loss = self.model.loss_function(X, X_recon, z_mean, z_log_var)
-                    loss = loss / X.size(0)
+
                     val_loss  += loss.item()
-                    val_recon += (recon_loss / X.size(0)).item()
-                    val_kl    += (kl_loss    / X.size(0)).item()
+                    val_recon += recon_loss.item()
+                    val_kl += kl_loss.item()
 
             m = len(self.valid_loader)
             val_loss  /= m
