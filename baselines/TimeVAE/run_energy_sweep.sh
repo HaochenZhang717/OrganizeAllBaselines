@@ -12,13 +12,14 @@ export WANDB_PROJECT="timevae_energy_sweep"
 # ── Search grids ──────────────────────────────────────────────────────────────
 LATENT_DIMS=(
 #  32
-  64
+#  64
   128
 )
 HIDDEN_CONFIGS=(
 #  "32 64 128"
 #  "64 128 256"
   "128 256 512"
+  "256 256 512"
 )
 KL_WTS=(
   0.001
