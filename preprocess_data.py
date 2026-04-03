@@ -31,7 +31,7 @@ DATASETS = {
     },
 }
 
-WINDOW_SIZE = 128       # length of each sliding window (time steps)
+WINDOW_SIZE = 24       # length of each sliding window (time steps)
 STRIDE = 1             # step size between consecutive windows
 
 # Train / valid / test split ratios (must sum to 1.0)

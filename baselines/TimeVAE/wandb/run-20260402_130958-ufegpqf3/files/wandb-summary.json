@@ -1,1 +1,0 @@
-{"valid/recon":33.20419134412493,"eval/fid":116.16998492600109,"_wandb":{"runtime":104},"valid/loss":115.88949530465263,"_timestamp":1.775153498720644e+09,"valid/kl":16.27692072732108,"epoch":3,"eval/discriminative":0.5,"train/recon":21.37766788623951,"_step":4,"train/loss":80.84237126950865,"train/kl":16.70936738120185,"_runtime":104}
