@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import types
 import torch
 import numpy as np
 from pathlib import Path
@@ -86,8 +87,7 @@ class Trainer:
         # ── Discriminative score ──────────────────────────────────────────────
         disc_val = discriminative_score_metrics(
             eval_real, fake_np,
-            input_size=feat_dim,
-            device=self.device,
+            types.SimpleNamespace(input_size=feat_dim, device=self.device),
         )
 
         print(f"Epoch {epoch}: FID={fid_val:.4f}  Disc={disc_val:.4f}")

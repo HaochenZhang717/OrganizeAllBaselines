@@ -4,7 +4,7 @@ import time
 import torch
 import numpy as np
 import torch.nn.functional as F
-
+import types
 from pathlib import Path
 from tqdm.auto import tqdm
 from torch.optim import Adam
@@ -111,10 +111,15 @@ class Trainer(object):
         fid_val = Context_FID(real_t, fake_t)
 
         # ── Discriminative score ─────────────────────────────────────────────
+        # disc_val = discriminative_score_metrics(
+        #     real_np, fake_np,
+        #     input_size=var_num,
+        #     device=self.device,
+        # )
+
         disc_val = discriminative_score_metrics(
             real_np, fake_np,
-            input_size=var_num,
-            device=self.device,
+            types.SimpleNamespace(input_size=var_num, device=self.device),
         )
 
         print(f"Epoch {epoch}: FID={fid_val:.4f}  Disc={disc_val:.4f}")

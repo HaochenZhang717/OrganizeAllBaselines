@@ -8,7 +8,7 @@ import torch
 import torch.nn as nn
 import wandb
 from torch.optim import Adam
-
+import types
 # Use shared evaluation_metrics from baselines/
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
@@ -177,11 +177,16 @@ class Trainer:
         fid_val = Context_FID(real_t, fake_t)
 
         disc_val = discriminative_score_metrics(
-            eval_real,
-            fake_np,
-            input_size=self.feature_size,
-            device=self.device,
+            eval_real, fake_np,
+            types.SimpleNamespace(input_size=feat_dim, device=self.device),
         )
+
+        # disc_val = discriminative_score_metrics(
+        #     eval_real,
+        #     fake_np,
+        #     input_size=self.feature_size,
+        #     device=self.device,
+        # )
 
         print(f"Step {step}: FID={fid_val:.4f}  Disc={disc_val:.4f}")
         wandb.log(

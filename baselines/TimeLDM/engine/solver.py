@@ -10,6 +10,7 @@ import os
 import sys
 import time
 import copy
+import types
 import torch
 import numpy as np
 import wandb
@@ -351,7 +352,8 @@ class LDMTrainer:
         fake_t = torch.tensor(fake_np.astype(np.float32))
         fid_val  = Context_FID(real_t, fake_t)
         disc_val = discriminative_score_metrics(
-            real_np, fake_np, input_size=var_num, device=self.device,
+            real_np, fake_np,
+            types.SimpleNamespace(input_size=var_num, device=self.device),
         )
 
         print(f"[LDM] Epoch {epoch}: Context-FID={fid_val:.4f}  Disc={disc_val:.4f}")
