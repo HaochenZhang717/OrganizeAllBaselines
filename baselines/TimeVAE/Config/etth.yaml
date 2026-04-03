@@ -17,6 +17,7 @@ solver:
 
 dataloader:
   train_data: ../../processed/ETTh1/train_ts.npy
-  valid_data: ../../processed/ETTh1/valid_ts.npy
+#  valid_data: ../../processed/ETTh1/valid_ts.npy
+  valid_data: ../../processed/ETTh1/train_ts.npy
   batch_size: 128
 
