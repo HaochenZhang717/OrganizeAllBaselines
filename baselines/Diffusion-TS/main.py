@@ -1,4 +1,4 @@
-import os
+ import os
 import torch
 import argparse
 import numpy as np
@@ -22,6 +22,14 @@ def parse_args():
     # training parameters
     parser.add_argument('--lr', type=float, required=True)
     parser.add_argument('--batch_size', type=int, required=True)
+    parser.add_argument('--results_folder', type=str, default=None,
+                        help='override solver.results_folder from config')
+    # model architecture overrides
+    parser.add_argument('--d_model',          type=int,   default=None)
+    parser.add_argument('--n_layer_enc',      type=int,   default=None)
+    parser.add_argument('--n_layer_dec',      type=int,   default=None)
+    parser.add_argument('--n_heads',          type=int,   default=None)
+    parser.add_argument('--mlp_hidden_times', type=int,   default=None)
 
     # args for random
     parser.add_argument('--cudnn_deterministic', action='store_true', default=False,
@@ -62,7 +70,22 @@ def main():
     args.save_dir = config['solver']['results_folder']
     config["solver"]["base_lr"] = args.lr
     config["dataloader"]["batch_size"] = args.batch_size
+    if args.results_folder is not None:
+        config['solver']['results_folder'] = args.results_folder
     config['solver']['results_folder'] = f"{config['solver']['results_folder']}/LR{config['solver']['base_lr']}-BS{config['dataloader']['batch_size']}"
+
+    # model architecture overrides
+    m_params = config['model']['params']
+    if args.d_model is not None:
+        m_params['d_model'] = args.d_model
+    if args.n_layer_enc is not None:
+        m_params['n_layer_enc'] = args.n_layer_enc
+    if args.n_layer_dec is not None:
+        m_params['n_layer_dec'] = args.n_layer_dec
+    if args.n_heads is not None:
+        m_params['n_heads'] = args.n_heads
+    if args.mlp_hidden_times is not None:
+        m_params['mlp_hidden_times'] = args.mlp_hidden_times
 
     logger = Logger(args)
     logger.save_config(config)

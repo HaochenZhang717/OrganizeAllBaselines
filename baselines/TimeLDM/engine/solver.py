@@ -109,6 +109,7 @@ class VAETrainer:
             for batch in self.train_dataloader:
                 batch = batch.to(self.device)
                 x_hat, mu, log_sigma, z = self.vae(batch)
+
                 total, recon, kl = vae_loss(
                     batch, x_hat, mu, log_sigma,
                     beta=self.vae.beta,

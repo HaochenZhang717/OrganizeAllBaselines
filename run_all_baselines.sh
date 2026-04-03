@@ -34,8 +34,8 @@ echo ""
 # Format: "BaselineDir:script1.sh[:script2.sh:...]"
 # Multiple scripts for the same entry run SEQUENTIALLY on one GPU (e.g. TimeLDM).
 TASKS=(
-  "Diffusion-TS:run_etth.sh"
-  "Diffusion-TS:run_energy.sh"
+#  "Diffusion-TS:run_etth.sh"
+#  "Diffusion-TS:run_energy.sh"
   # "TimeGAN:run_etth.sh"
   # "TimeGAN:run_energy.sh"
   "TimeVAE:run_etth.sh"
