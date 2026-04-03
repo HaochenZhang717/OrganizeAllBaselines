@@ -20,6 +20,8 @@ from torch.nn.utils import clip_grad_norm_
 
 # Allow running from the baselines/TimeLDM/ directory
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Use shared evaluation_metrics from baselines/
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from losses import vae_loss, ldm_loss
 from models.ldm import sample_time, add_noise

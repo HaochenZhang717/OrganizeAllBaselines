@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 from pathlib import Path
 
@@ -7,6 +8,9 @@ import torch
 import torch.nn as nn
 import wandb
 from torch.optim import Adam
+
+# Use shared evaluation_metrics from baselines/
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 # from evaluation_metrics.fid import compute_fid
 from evaluation_metrics.discriminative_torch import discriminative_score_metrics

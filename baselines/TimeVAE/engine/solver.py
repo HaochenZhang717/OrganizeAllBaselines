@@ -6,6 +6,9 @@ import numpy as np
 from pathlib import Path
 from torch.optim import Adam
 import wandb
+
+# Use shared evaluation_metrics from baselines/
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from evaluation_metrics.discriminative_torch import discriminative_score_metrics
 from evaluation_metrics.ts2vec.context_fid import Context_FID
 

@@ -13,6 +13,9 @@ from Utils.io_utils import instantiate_from_config, get_model_parameters_info
 from engine.lr_sch import ReduceLROnPlateauWithWarmup
 import copy
 import wandb
+
+# Use shared evaluation_metrics from baselines/
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from evaluation_metrics.discriminative_torch import discriminative_score_metrics
 from evaluation_metrics.ts2vec.context_fid import Context_FID
 
